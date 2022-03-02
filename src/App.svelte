@@ -10,6 +10,17 @@
   let chartCanvas
   let chart
 
+  const colorRating = (rating) => {
+    if (rating < 400) return [128,128,128]
+    else if (rating < 800) return [128,64,0]
+    else if (rating < 1200) return [0,128,0]
+    else if (rating < 1600) return [0,192,192]
+    else if (rating < 2000) return [0,0,255]
+    else if (rating < 2400) return [192,192,0]
+    else if (rating < 2800) return [255,128,0]
+    return [255,0,0]
+  }
+
   const calculatePerformance = (newPerformance?: number) => {
     const performances: number[] = []
     for (const p of performancesTextArea.split("\n")) {
@@ -50,12 +61,39 @@
       }),
       datasets: [
         {
-          label: "Next Rate",
-          backgroundColor: "rgb(255, 99, 132)",
-          borderColor: "rgb(255, 99, 132)",
+          label: "New Rate",
+          backgroundColor: "rgb(128, 128, 128, 0)",
+          borderColor: "rgb(128, 128, 128)",
           data: data,
         },
       ],
+    }
+
+    const drawBackground = (target) => {
+      const xScale = target.scales["x-axis-0"]
+      const yScale = target.scales["y-axis-0"]
+
+      for (const rate of [...Array(8).keys()].map((i) => {return i * 400})) {
+        chartCanvas.getContext("2d").fillStyle = `rgba(${colorRating(rate).join(", ")}, 0.2)`
+        chartCanvas
+          .getContext("2d")
+          .fillRect(
+            xScale.left,
+            Math.min(yScale.getPixelForValue(rate+400),yScale.bottom),
+            xScale.width,
+            Math.min(yScale.getPixelForValue(rate), yScale.bottom) - Math.min(yScale.getPixelForValue(rate+400), yScale.bottom)
+          )
+        chartCanvas.getContext("2d").fillStyle = `rgba(${colorRating(rate).join(", ")}, 0.5)`
+        chartCanvas
+          .getContext("2d")
+          .fillRect(
+            xScale.getPixelForValue(rate),
+            yScale.bottom,
+            Math.min(xScale.getPixelForValue(rate+400),xScale.right) - Math.min(xScale.getPixelForValue(rate),xScale.right),
+            5,
+          )
+      }
+
     }
 
     chart = new Chart(chartCanvas, {
@@ -77,12 +115,17 @@
             {
               scaleLabel: {
                 display: true,
-                labelString: "Next Rate",
+                labelString: "New Rate",
               },
             },
           ],
         },
       },
+      plugins: [
+        {
+          beforeDraw: drawBackground,
+        },
+      ],
     } as any)
   }
 
@@ -92,7 +135,6 @@
     for (const i of [...Array(32).keys()]) {
       newRates.push(calculatePerformance(i * 100))
     }
-    console.log(newRates)
     drawChart(newRates)
   }
 </script>
