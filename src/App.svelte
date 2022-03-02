@@ -137,6 +137,8 @@
     }
     drawChart(newRates)
   }
+
+  onMount(calculateButton)
 </script>
 
 <main>
@@ -155,7 +157,7 @@
   <p><button on:click={calculateButton}> 計算 </button></p>
 
   <h2>現在のレート</h2>
-  <p>{rate || "?"}</p>
+  <p>{rate || "未参加"}</p>
 
   <h2>次回のレート</h2>
   <p><canvas width={1280} height={720} bind:this={chartCanvas} /></p>
