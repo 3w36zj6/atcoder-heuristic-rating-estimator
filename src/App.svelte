@@ -56,14 +56,16 @@
       chart.destroy()
     }
     const chartData = {
-      labels: [...Array(32).keys()].map((i) => {
-        return i * 100
+      labels: [...Array(320).keys()].map((i) => {
+        return i * 10
       }),
       datasets: [
         {
+          title: "Performance",
           label: "New Rate",
           backgroundColor: "rgb(128, 128, 128, 0)",
-          borderColor: "rgb(128, 128, 128)",
+          borderColor: "rgb(128, 128, 128 ,0.8)",
+          pointRadius: 0,
           data: data,
         },
       ],
@@ -73,7 +75,7 @@
       const xScale = target.scales["x-axis-0"]
       const yScale = target.scales["y-axis-0"]
 
-      for (const rate of [...Array(8).keys()].map((i) => {
+      for (const rate of [...Array(10).keys()].map((i) => {
         return i * 400
       })) {
         chartCanvas.getContext("2d").fillStyle = `rgba(${colorRating(rate).join(
@@ -109,6 +111,25 @@
       options: {
         responsive: true,
         legend: { display: false },
+        tooltips: {
+          intersect: false,
+          backgroundColor: "rgba(0, 0, 0, 0.8)",
+          titleFontColor: "rgba(255, 255, 255)",
+          bodyFontColor: "rgba(255, 255, 255)",
+          titleFontStyle: "normal",
+          custom: (tooltip) => {
+            tooltip.displayColors = false
+          },
+          callbacks: {
+            title: (tooltipItems) => {
+              return `Performance:${tooltipItems[0].xLabel}`
+            },
+            label: (tooltipItems) => {
+              return `Rating:${tooltipItems.yLabel}`
+            },
+          },
+        },
+
         scales: {
           xAxes: [
             {
@@ -116,6 +137,10 @@
                 display: true,
                 labelString: "Performance",
               },
+              ticks:{
+                stepSize: 100,
+                maxTicksLimit: 32,
+              }
             },
           ],
           yAxes: [
@@ -124,6 +149,9 @@
                 display: true,
                 labelString: "New Rate",
               },
+              ticks:{
+                stepSize:100
+              }
             },
           ],
         },
@@ -139,8 +167,8 @@
   const calculateButton = () => {
     rate = calculatePerformance()
     let newRates: number[] = []
-    for (const i of [...Array(32).keys()]) {
-      newRates.push(calculatePerformance(i * 100))
+    for (const i of [...Array(320).keys()]) {
+      newRates.push(calculatePerformance(i * 10))
     }
     drawChart(newRates)
   }
