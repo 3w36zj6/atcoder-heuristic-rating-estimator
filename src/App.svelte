@@ -1,9 +1,14 @@
 <script lang="ts">
+  import { Chart } from "chart.js"
+  import { onMount } from "svelte"
   let performancesTextArea: string = ""
   const s: number = 724.4744301
   const r: number = 0.8271973364
 
   let rate: number = 0
+
+  let chartCanvas
+  let chart
 
   const calculatePerformance = (newPerformance?: number) => {
     const performances: number[] = []
@@ -12,7 +17,7 @@
         performances.push(parseInt(p))
       }
     }
-    if (newPerformance) {
+    if (newPerformance != undefined) {
       performances.push(newPerformance)
     }
     let extendedPerformances: number[] = []
@@ -35,11 +40,41 @@
     return rate
   }
 
+  const drawChart = (data) => {
+    if (chart) {
+      chart.destroy()
+    }
+    const chartData = {
+      labels: [...Array(32).keys()].map((i) => {
+        return i * 100
+      }),
+      datasets: [
+        {
+          label: "Sample",
+          backgroundColor: "rgb(255, 99, 132)",
+          borderColor: "rgb(255, 99, 132)",
+          data: data,
+        },
+      ],
+    }
+
+    chart = new Chart(chartCanvas, {
+      type: "line",
+      data: chartData,
+      options: {
+        responsive: true,
+      },
+    })
+  }
+
   const calculateButton = () => {
     rate = calculatePerformance()
-    for (const i of [...Array(400).keys()]) {
-      console.log(i * 10, calculatePerformance(i * 10))
+    let newRates: number[] = []
+    for (const i of [...Array(32).keys()]) {
+      newRates.push(calculatePerformance(i * 100))
     }
+    console.log(newRates)
+    drawChart(newRates)
   }
 </script>
 
@@ -60,6 +95,9 @@
 
   <h2>現在のレート</h2>
   <p>{rate || "?"}</p>
+
+  <h2>次回のレート</h2>
+  <p><canvas width={1280} height={720} bind:this={chartCanvas} /></p>
 </main>
 
 <style>
