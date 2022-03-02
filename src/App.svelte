@@ -50,7 +50,7 @@
       }),
       datasets: [
         {
-          label: "Sample",
+          label: "Next Rate",
           backgroundColor: "rgb(255, 99, 132)",
           borderColor: "rgb(255, 99, 132)",
           data: data,
@@ -63,8 +63,27 @@
       data: chartData,
       options: {
         responsive: true,
+        legend: { display: false },
+        scales: {
+          xAxes: [
+            {
+              scaleLabel: {
+                display: true,
+                labelString: "Performance",
+              },
+            },
+          ],
+          yAxes: [
+            {
+              scaleLabel: {
+                display: true,
+                labelString: "Next Rate",
+              },
+            },
+          ],
+        },
       },
-    })
+    } as any)
   }
 
   const calculateButton = () => {
