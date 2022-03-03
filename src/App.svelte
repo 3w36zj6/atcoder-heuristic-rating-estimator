@@ -62,7 +62,7 @@
       datasets: [
         {
           title: "Performance",
-          label: "New Rate",
+          label: "New Rating",
           backgroundColor: "rgb(128, 128, 128, 0)",
           borderColor: "rgb(128, 128, 128 ,0.8)",
           pointRadius: 0,
@@ -147,7 +147,7 @@
             {
               scaleLabel: {
                 display: true,
-                labelString: "New Rate",
+                labelString: "New Rating",
               },
               ticks: {
                 stepSize: 100,
