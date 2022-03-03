@@ -62,7 +62,7 @@
       datasets: [
         {
           title: "Performance",
-          label: "New Rate",
+          label: "New Rating",
           backgroundColor: "rgb(128, 128, 128, 0)",
           borderColor: "rgb(128, 128, 128 ,0.8)",
           pointRadius: 0,
@@ -137,21 +137,21 @@
                 display: true,
                 labelString: "Performance",
               },
-              ticks:{
+              ticks: {
                 stepSize: 100,
                 maxTicksLimit: 32,
-              }
+              },
             },
           ],
           yAxes: [
             {
               scaleLabel: {
                 display: true,
-                labelString: "New Rate",
+                labelString: "New Rating",
               },
-              ticks:{
-                stepSize:100
-              }
+              ticks: {
+                stepSize: 100,
+              },
             },
           ],
         },
@@ -195,7 +195,7 @@
   <p>{rate || "未参加"}</p>
 
   <h2>次回のレート</h2>
-  <p><canvas width={1280} height={720} bind:this={chartCanvas} /></p>
+  <div id="chart"><canvas bind:this={chartCanvas} /></div>
 
   <h2>View on GitHub</h2>
   <p>
@@ -221,5 +221,9 @@
   textarea {
     width: 150px;
     height: 200px;
+  }
+  #chart {
+    position: relative;
+    width: 900px;
   }
 </style>
