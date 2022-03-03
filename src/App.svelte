@@ -137,10 +137,10 @@
                 display: true,
                 labelString: "Performance",
               },
-              ticks:{
+              ticks: {
                 stepSize: 100,
                 maxTicksLimit: 32,
-              }
+              },
             },
           ],
           yAxes: [
@@ -149,9 +149,9 @@
                 display: true,
                 labelString: "New Rate",
               },
-              ticks:{
-                stepSize:100
-              }
+              ticks: {
+                stepSize: 100,
+              },
             },
           ],
         },
@@ -195,7 +195,7 @@
   <p>{rate || "未参加"}</p>
 
   <h2>次回のレート</h2>
-  <p><canvas width={1280} height={720} bind:this={chartCanvas} /></p>
+  <div id="chart"><canvas bind:this={chartCanvas} /></div>
 
   <h2>View on GitHub</h2>
   <p>
@@ -221,5 +221,9 @@
   textarea {
     width: 150px;
     height: 200px;
+  }
+  #chart {
+    position: relative;
+    width: 900px;
   }
 </style>
