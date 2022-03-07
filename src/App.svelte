@@ -181,7 +181,7 @@
 
   <h2>過去のパフォーマンス</h2>
   <p>
-    改行区切りで入力してください。レート計算式よりパフォーマンスの順番は関係ありません。
+    改行区切りで入力してください。レーティング計算式よりパフォーマンスの順番は関係ありません。
   </p>
   <p>
     <textarea
@@ -191,10 +191,10 @@
   </p>
   <p><button on:click={calculateButton}> 計算 </button></p>
 
-  <h2>現在のレート</h2>
+  <h2>現在のレーティング</h2>
   <p>{rate || "未参加"}</p>
 
-  <h2>次回のレート</h2>
+  <h2>次回のレーティング</h2>
   <div id="chart"><canvas bind:this={chartCanvas} /></div>
 
   <h2>View on GitHub</h2>
