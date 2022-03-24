@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Chart } from "chart.js"
+  import axios, { AxiosResponse, AxiosError } from "axios"
   import { onMount } from "svelte"
   let performancesTextArea: string = ""
   const s: number = 724.4744301
@@ -9,6 +10,8 @@
 
   let chartCanvas
   let chart
+
+  let atcoderID: string = "tourist"
 
   const colorRating = (rating) => {
     if (rating < 400) return [128, 128, 128]
@@ -173,6 +176,29 @@
     drawChart(newRates)
   }
 
+  const importButton = () => {
+    const url: string = `${process.env.API_URL}?type=heuristic&id=${atcoderID}`
+    const performances: number[] = []
+
+    axios
+      .get(url)
+      .then((response: AxiosResponse) => {
+        for (const contest of response.data) {
+          if (contest.IsRated) {
+            performances.push(contest.Performance)
+          }
+        }
+        if (performances) {
+          performancesTextArea = performances.join("\n")
+          calculateButton()
+        }
+      })
+      .catch((error: AxiosError) => {
+        console.log(error)
+      })
+      .then(() => {})
+  }
+
   onMount(calculateButton)
 </script>
 
@@ -180,6 +206,12 @@
   <h1>AtCoder Heuristic Rating Estimator</h1>
 
   <h2>過去のパフォーマンス</h2>
+  <p>AtCoder ID:<input bind:value={atcoderID} /></p>
+  <p>
+    <button on:click={importButton}>
+      atcoder.jpからコンテスト履歴をインポート
+    </button>
+  </p>
   <p>
     改行区切りで入力してください。レーティング計算式よりパフォーマンスの順番は関係ありません。
   </p>
