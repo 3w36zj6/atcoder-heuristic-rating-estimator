@@ -7,6 +7,7 @@
     "url": "https://github.com/3w36zj6/atcoder-heuristic-rating-estimator/issues"
   },
   "dependencies": {
+    "axios": "^0.26.1",
     "sirv-cli": "^2.0.0"
   },
   "devDependencies": {
