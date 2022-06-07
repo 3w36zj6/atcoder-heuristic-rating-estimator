@@ -13,6 +13,8 @@
 
   let atcoderID: string = "tourist"
 
+  const urlSearchParams = new URLSearchParams(location.search)
+
   const colorRating = (rating) => {
     if (rating < 400) return [128, 128, 128]
     else if (rating < 800) return [128, 64, 0]
@@ -200,6 +202,11 @@
   }
 
   onMount(calculateButton)
+
+  if (urlSearchParams.get("id") != null) {
+    atcoderID = urlSearchParams.get("id")
+    importButton()
+  }
 </script>
 
 <main>
