@@ -182,6 +182,9 @@
     const url: string = `${process.env.API_URL}?type=heuristic&id=${atcoderID}`
     const performances: number[] = []
 
+    urlSearchParams.set("id", atcoderID)
+    history.replaceState("", "", `?${urlSearchParams.toString()}`)
+
     axios
       .get(url)
       .then((response: AxiosResponse) => {
