@@ -181,7 +181,6 @@
   const importButton = () => {
     const url: string = `${process.env.API_URL}?type=heuristic&id=${atcoderID}`
     const performances: number[] = []
-
     urlSearchParams.set("id", atcoderID)
     history.replaceState("", "", `?${urlSearchParams.toString()}`)
 
@@ -214,8 +213,12 @@
 
 <main>
   <h1>AtCoder Heuristic Rating Estimator</h1>
-
+  <p>
+    AtCoder Heuristic
+    Contest(AHC)の目標レーティングへの到達に必要なパフォーマンスを計算しグラフで表示します。
+  </p>
   <h2>過去のパフォーマンス</h2>
+
   <p>AtCoder ID:<input bind:value={atcoderID} /></p>
   <p>
     <button on:click={importButton}>
@@ -239,6 +242,16 @@
   <h2>次回のレーティング</h2>
   <div id="chart"><canvas bind:this={chartCanvas} /></div>
 
+  <h2>Twitterでつぶやく</h2>
+  <ul>
+    <li>
+      <a
+        href="https://twitter.com/intent/tweet?hashtags=atcoder%20%23heuristic%20%23ahc&amp;text=AtCoder%20Heuristic%20Rating%20Estimator%20-%20{atcoderID}&amp;url={location
+          .toString()
+          .split('?')[0]}?id={atcoderID}">Tweet</a
+      >
+    </li>
+  </ul>
   <h2>View on GitHub</h2>
   <p>
     <a href="https://github.com/3w36zj6/atcoder-heuristic-rating-estimator"
