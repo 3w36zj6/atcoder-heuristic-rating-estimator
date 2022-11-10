@@ -13,6 +13,11 @@
 npm install
 ```
 
+## Set environment variable
+```
+export API_URL="https://script.google.com/macros/s/AKfycby-CKUsGoe7YZBeIf9FMwvCK6JIfqnVkN-8764iNkRApGPns158Q6vJPxpDdnGfsDXU/exec"
+```
+
 ## Run server
 ```
 npm run dev
