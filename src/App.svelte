@@ -46,8 +46,8 @@
     let rateDenominator: number = 0
     let rateNumerator: number = 0
     for (const i of [...Array(100).keys()]) {
-      rateDenominator += extendedPerformances[i] * r ** i
-      rateNumerator += r ** i
+      rateDenominator += extendedPerformances[i] * r ** (i + 1)
+      rateNumerator += r ** (i + 1)
     }
     let rate: number = rateDenominator / rateNumerator
     if (rate < 400) {
